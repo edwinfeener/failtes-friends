@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-failtesfriends-dev-152728-authRole",
+      "UnauthRoleArn": "arn:aws:iam::983410232895:role/amplify-failtesfriends-dev-152728-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::983410232895:role/amplify-failtesfriends-dev-152728-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-failtesfriends-dev-152728-deployment",
+      "UnauthRoleName": "amplify-failtesfriends-dev-152728-unauthRole",
+      "StackName": "amplify-failtesfriends-dev-152728",
+      "StackId": "arn:aws:cloudformation:us-east-2:983410232895:stack/amplify-failtesfriends-dev-152728/7b7792f0-29dc-11eb-905f-0656208217bc",
+      "AmplifyAppId": "d2sssq04rwi6kc"
+    },
+    "categories": {
+      "auth": {
+        "failtesfriends805c9a8f": {}
+      }
+    }
+  }
+}
