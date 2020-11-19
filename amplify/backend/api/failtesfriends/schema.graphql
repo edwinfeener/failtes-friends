@@ -1,0 +1,17 @@
+type Drink @model {
+  id: ID!
+  name: String!
+  description: String!
+  ingredients: String!
+  instructions: String!
+  reviews: [Review] @connection(keyName: "byDrink", fields: ["id"])
+}
+
+type Review @model @key(name: "byDrink", fields: ["drinkID", "content"]) {
+  id: ID!
+  drinkID: ID!
+  drink: Drink @connection(fields: ["drinkID"])
+  content: String!
+  score: Float!
+  userID: String!
+}
