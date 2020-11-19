@@ -1,76 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { API } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listDrinks } from './graphql/queries';
-import { createDrink as createDrinkMutation, deleteDrink as deleteDrinkMutation } from './graphql/mutations';
+// import { Auth } from 'aws-amplify';
 
-const initialFormState = { name: '', description: '', ingredients: '', instructions: '' }
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+import DrinkList from './components/DrinkList';
+import CreateDrink from './components/CreateDrink';
 
 function App() {
-  const [drinks, setDrinks] = useState([]);
-  const [formData, setFormData] = useState(initialFormState);
+  let currentView = 'drinkList';
+  const [currentUser, setCurrentUser] = useState();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    fetchDrinks();
-  }, []);
+  // useEffect(() => {
+  //   alert('USER CHANGED');;
+  // }, [currentUser]);
 
-  async function fetchDrinks() {
-    const apiData = await API.graphql({ query: listDrinks });
-    setDrinks(apiData.data.listDrinks.items);
-  }
+  // Auth.currentAuthenticatedUser().then(user => setCurrentUser(user));
 
-  async function createDrink() {
-    if (!formData.name || !formData.description || !formData.ingredients || !formData.instructions) return;
-    await API.graphql({ query: createDrinkMutation, variables: { input: formData } });
-    setDrinks([ ...drinks, formData ]);
-    setFormData(initialFormState);
-  }
-
-  async function deleteDrink({ id }) {
-    const newDrinksArray = drinks.filter(drink => drink.id !== id);
-    setDrinks(newDrinksArray);
-    await API.graphql({ query: deleteDrinkMutation, variables: { input: { id } }});
-  }
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
-    <div className="App">
-      <h1>My Drinks App</h1>
-      <input
-        onChange={e => setFormData({ ...formData, 'name': e.target.value})}
-        placeholder="Drink name"
-        value={formData.name}
-      />
-      <input
-        onChange={e => setFormData({ ...formData, 'description': e.target.value})}
-        placeholder="Drink description"
-        value={formData.description}
-      />
-      <input
-        onChange={e => setFormData({ ...formData, 'ingredients': e.target.value})}
-        placeholder="Drink ingredients"
-        value={formData.ingredients}
-      />
-      <input
-        onChange={e => setFormData({ ...formData, 'instructions': e.target.value})}
-        placeholder="Drink instructions"
-        value={formData.instructions}
-      />
-      <button onClick={createDrink}>Create Drink</button>
-      <div style={{marginBottom: 30}}>
-        {
-          drinks.map(drink => (
-            <div key={drink.id || drink.name}>
-              <h2>{drink.name}</h2>
-              <p>{drink.description}</p>
-              <p>{drink.instructions}</p>
-              <p>{drink.ingredients}</p>
-              <button onClick={() => deleteDrink(drink)}>Delete drink</button>
-            </div>
-          ))
-        }
+    <div>
+      <div style={{flexGrow: '1'}}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleMenu} onClose={toggleMenu}>
+              <MenuIcon />
+            </IconButton>
+            <Menu open={menuOpen}>
+              <MenuItem onClick={toggleMenu}>This Weeks Drinks</MenuItem>
+              <MenuItem onClick={toggleMenu}>All Drinks</MenuItem>
+              <MenuItem onClick={toggleMenu}>Create a Drink</MenuItem>
+            </Menu>
+            <Typography variant="h6">
+              Failtes Friends
+            </Typography>
+            {/* <Button color="inherit">Login</Button> */}
+          </Toolbar>
+        </AppBar>
       </div>
-      <AmplifySignOut />
+      <div className="App">
+        <h1>My Drinks App {currentUser ? currentUser.username : 'unknown'}</h1>
+        {currentView === 'drinkList' && <CreateDrink />}
+        {currentView === 'drinkList' && <DrinkList />}
+        {currentView === 'signoutavailable' && <AmplifySignOut />}
+      </div>
     </div>
   );
 }
