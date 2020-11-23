@@ -68,7 +68,7 @@ function App() {
             </IconButton>
             {currentUser &&
             <Menu open={menuOpen}>
-              {currentUser === 'edwin' && <MenuItem onClick={openAdminPage}>Admin</MenuItem>}
+              {currentUser === 'Edwin' && <MenuItem onClick={openAdminPage}>Admin</MenuItem>}
               <MenuItem onClick={toggleMenu}>This Weeks Drinks</MenuItem>
               <MenuItem onClick={openDrinkList}>All Drinks</MenuItem>
               <MenuItem onClick={openCreateDrink}>Create a Drink</MenuItem>
@@ -84,7 +84,7 @@ function App() {
         {currentView === 'loginPage' && <Login cookies={cookies} onLoginComplete={setCurrentUser} />}
         {currentView === 'adminPage' && <AdminPage />}
         {currentView === 'createDrink' && <CreateDrink currentUser={currentUser}/>}
-        {currentView === 'drinkList' && <DrinkList />}
+        {currentView === 'drinkList' && <DrinkList currentUser={currentUser}/>}
         {currentView === 'signoutavailable' && <AmplifySignOut />}
       </div>
     </div>

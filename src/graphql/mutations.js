@@ -51,6 +51,7 @@ export const createDrink = /* GraphQL */ `
       description
       ingredients
       instructions
+      author
       reviews {
         items {
           id
@@ -79,6 +80,7 @@ export const updateDrink = /* GraphQL */ `
       description
       ingredients
       instructions
+      author
       reviews {
         items {
           id
@@ -107,6 +109,7 @@ export const deleteDrink = /* GraphQL */ `
       description
       ingredients
       instructions
+      author
       reviews {
         items {
           id
@@ -138,6 +141,7 @@ export const createReview = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }
@@ -166,6 +170,7 @@ export const updateReview = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }
@@ -194,6 +199,7 @@ export const deleteReview = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }

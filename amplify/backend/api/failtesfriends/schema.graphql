@@ -6,9 +6,10 @@ type User @model {
 type Drink @model {
   id: ID!
   name: String!
-  description: String!
-  ingredients: String!
-  instructions: String!
+  description: String
+  ingredients: String
+  instructions: String
+  author: String!
   reviews: [Review] @connection(keyName: "byDrink", fields: ["id"])
 }
 

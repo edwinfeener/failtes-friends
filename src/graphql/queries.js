@@ -36,6 +36,7 @@ export const getDrink = /* GraphQL */ `
       description
       ingredients
       instructions
+      author
       reviews {
         items {
           id
@@ -66,6 +67,7 @@ export const listDrinks = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }
@@ -87,6 +89,7 @@ export const getReview = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }
@@ -117,6 +120,7 @@ export const listReviews = /* GraphQL */ `
           description
           ingredients
           instructions
+          author
           createdAt
           updatedAt
         }

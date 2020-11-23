@@ -39,6 +39,7 @@ export const onCreateDrink = /* GraphQL */ `
       description
       ingredients
       instructions
+      author
       reviews {
         items {
           id
@@ -64,6 +65,7 @@ export const onUpdateDrink = /* GraphQL */ `
       description
       ingredients
       instructions
+      author
       reviews {
         items {
           id
@@ -89,6 +91,7 @@ export const onDeleteDrink = /* GraphQL */ `
       description
       ingredients
       instructions
+      author
       reviews {
         items {
           id
@@ -117,6 +120,7 @@ export const onCreateReview = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }
@@ -142,6 +146,7 @@ export const onUpdateReview = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }
@@ -167,6 +172,7 @@ export const onDeleteReview = /* GraphQL */ `
         description
         ingredients
         instructions
+        author
         reviews {
           nextToken
         }
