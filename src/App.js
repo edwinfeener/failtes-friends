@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import DrinkList from './components/DrinkList';
 import CreateDrink from './components/CreateDrink';
+import AdminPage from './components/AdminPage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
@@ -31,20 +32,25 @@ function App() {
   };
 
   function openCreateDrink() {
-    setMenuOpen(false);
-    setCurrentView('createDrink');
+    openPage('createDrink');
   };
 
   function openDrinkList() {
-    setMenuOpen(false);
-    setCurrentView('drinkList');
+    openPage('drinkList');
   };
 
   function openThisWeeksDrinks() {
-    setMenuOpen(false);
-    setCurrentView('thisWeeksDrinks');
+    openPage('thisWeeksDrinks');
   };
 
+  function openThisWeeksDrinks() {
+    openPage('thisWeeksDrinks');
+  };
+
+  function openPage(pageName) {
+    setMenuOpen(false);
+    setCurrentView(pageName);
+  };
   return (
     <div>
       <div style={{flexGrow: '1'}}>
@@ -54,6 +60,7 @@ function App() {
               <MenuIcon />
             </IconButton>
             <Menu open={menuOpen}>
+              <MenuItem onClick={openAdminPage}>Admin</MenuItem>
               <MenuItem onClick={toggleMenu}>This Weeks Drinks</MenuItem>
               <MenuItem onClick={openDrinkList}>All Drinks</MenuItem>
               <MenuItem onClick={openCreateDrink}>Create a Drink</MenuItem>
@@ -66,6 +73,7 @@ function App() {
         </AppBar>
       </div>
       <div className="App">
+        {currentView === 'admin' && <AdminPage />}
         {currentView === 'createDrink' && <CreateDrink />}
         {currentView === 'drinkList' && <DrinkList />}
         {currentView === 'signoutavailable' && <AmplifySignOut />}
