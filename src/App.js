@@ -16,8 +16,8 @@ import DrinkList from './components/DrinkList';
 import CreateDrink from './components/CreateDrink';
 
 function App() {
-  let currentView = 'drinkList';
   const [currentUser, setCurrentUser] = useState();
+  const [currentView, setCurrentView] = useState('drinkList');
   const [menuOpen, setMenuOpen] = useState(false);
 
   // useEffect(() => {
@@ -30,6 +30,21 @@ function App() {
     setMenuOpen(!menuOpen);
   };
 
+  function openCreateDrink() {
+    setMenuOpen(false);
+    setCurrentView('createDrink');
+  };
+
+  function openDrinkList() {
+    setMenuOpen(false);
+    setCurrentView('drinkList');
+  };
+
+  function openThisWeeksDrinks() {
+    setMenuOpen(false);
+    setCurrentView('thisWeeksDrinks');
+  };
+
   return (
     <div>
       <div style={{flexGrow: '1'}}>
@@ -40,8 +55,8 @@ function App() {
             </IconButton>
             <Menu open={menuOpen}>
               <MenuItem onClick={toggleMenu}>This Weeks Drinks</MenuItem>
-              <MenuItem onClick={toggleMenu}>All Drinks</MenuItem>
-              <MenuItem onClick={toggleMenu}>Create a Drink</MenuItem>
+              <MenuItem onClick={openDrinkList}>All Drinks</MenuItem>
+              <MenuItem onClick={openCreateDrink}>Create a Drink</MenuItem>
             </Menu>
             <Typography variant="h6">
               Failtes Friends
@@ -51,8 +66,7 @@ function App() {
         </AppBar>
       </div>
       <div className="App">
-        <h1>My Drinks App {currentUser ? currentUser.username : 'unknown'}</h1>
-        {currentView === 'drinkList' && <CreateDrink />}
+        {currentView === 'createDrink' && <CreateDrink />}
         {currentView === 'drinkList' && <DrinkList />}
         {currentView === 'signoutavailable' && <AmplifySignOut />}
       </div>

@@ -25,12 +25,21 @@ function DrinkList() {
   return (
     <div style={{marginBottom: 30}}>
       <h1>Drink List</h1>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '20px' }}>
         <div style={{ flex: '1'}}>
           <span>Name</span>
         </div>
         <div style={{ flex: '1'}}>
           <span>Description</span>
+        </div>
+        <div style={{ flex: '1'}}>
+          <span>Ingredients</span>
+        </div>
+        <div style={{ flex: '1'}}>
+          <span>Instructions</span>
+        </div>
+        <div style={{ flex: '1'}}>
+          <span>Author</span>
         </div>
         <div style={{ flex: '1'}}>
           <span>Average Rating</span>
@@ -44,6 +53,15 @@ function DrinkList() {
           </div>
           <div style={{ flex: '1'}}>
             <span>{drink.description}</span>
+          </div>
+          <div style={{ flex: '1'}}>
+            <span>{drink.ingredients}</span>
+          </div>
+          <div style={{ flex: '1'}}>
+            <span>{drink.instructions}</span>
+          </div>
+          <div style={{ flex: '1'}}>
+            <span>{drink.author}</span>
           </div>
           <div style={{ flex: '1'}}>
             <span>{drink.averageScore}</span>
