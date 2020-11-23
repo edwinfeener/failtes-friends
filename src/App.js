@@ -83,7 +83,7 @@ function App() {
       <div className="App">
         {currentView === 'loginPage' && <Login cookies={cookies} onLoginComplete={setCurrentUser} />}
         {currentView === 'adminPage' && <AdminPage />}
-        {currentView === 'createDrink' && <CreateDrink />}
+        {currentView === 'createDrink' && <CreateDrink currentUser={currentUser}/>}
         {currentView === 'drinkList' && <DrinkList />}
         {currentView === 'signoutavailable' && <AmplifySignOut />}
       </div>
