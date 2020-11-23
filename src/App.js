@@ -3,27 +3,34 @@ import './App.css';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 // import { Auth } from 'aws-amplify';
 
+import Cookies from 'universal-cookie';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import Login from './components/Login';
 import DrinkList from './components/DrinkList';
 import CreateDrink from './components/CreateDrink';
 import AdminPage from './components/AdminPage';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState();
-  const [currentView, setCurrentView] = useState('drinkList');
+  const cookies = new Cookies();
+  const initialUser = cookies.get('username');
+
+  const [currentUser, setCurrentUser] = useState(initialUser);
+  const [currentView, setCurrentView] = useState(initialUser === undefined ? 'loginPage' : 'drinkList');
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // useEffect(() => {
-  //   alert('USER CHANGED');;
-  // }, [currentUser]);
+  useEffect(() => {
+    if (currentUser && currentUser !== undefined) {
+      openDrinkList();
+    }
+  }, [currentUser]);
 
   // Auth.currentAuthenticatedUser().then(user => setCurrentUser(user));
 
@@ -43,8 +50,8 @@ function App() {
     openPage('thisWeeksDrinks');
   };
 
-  function openThisWeeksDrinks() {
-    openPage('thisWeeksDrinks');
+  function openAdminPage() {
+    openPage('adminPage');
   };
 
   function openPage(pageName) {
@@ -59,12 +66,13 @@ function App() {
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleMenu} onClose={toggleMenu}>
               <MenuIcon />
             </IconButton>
+            {currentUser &&
             <Menu open={menuOpen}>
-              <MenuItem onClick={openAdminPage}>Admin</MenuItem>
+              {currentUser === 'edwin' && <MenuItem onClick={openAdminPage}>Admin</MenuItem>}
               <MenuItem onClick={toggleMenu}>This Weeks Drinks</MenuItem>
               <MenuItem onClick={openDrinkList}>All Drinks</MenuItem>
               <MenuItem onClick={openCreateDrink}>Create a Drink</MenuItem>
-            </Menu>
+            </Menu>}
             <Typography variant="h6">
               Failtes Friends
             </Typography>
@@ -73,7 +81,8 @@ function App() {
         </AppBar>
       </div>
       <div className="App">
-        {currentView === 'admin' && <AdminPage />}
+        {currentView === 'loginPage' && <Login cookies={cookies} onLoginComplete={setCurrentUser} />}
+        {currentView === 'adminPage' && <AdminPage />}
         {currentView === 'createDrink' && <CreateDrink />}
         {currentView === 'drinkList' && <DrinkList />}
         {currentView === 'signoutavailable' && <AmplifySignOut />}
