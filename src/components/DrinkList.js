@@ -40,48 +40,42 @@ function DrinkList(props) {
 
   function getDrinkList() {
     return(
-      <div style={{ marginTop: '50px', marginLeft: '30px'}}>
+      <div style={{ marginTop: '50px', marginLeft: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
         <div style={{marginBottom: '50px'}}>
           <Typography variant='h4'>Drink List</Typography>
         </div>
-        <table style={{borderCollapse: 'collapse', width: '100%'}}>
-          <tr style={styles.trHeader}>
-            <th style={styles.td}><Typography variant='body1'>Name</Typography></th>
-            <th style={styles.td}><Typography variant='body1'>Ingredients</Typography></th>
-            <th style={styles.td}><Typography variant='body1'>Instructions</Typography></th>
-            <th style={styles.td}><Typography variant='body1'>Author</Typography></th>
-            <th style={styles.td}><Typography variant='body1'>Rating</Typography></th>
-          </tr>
-          {
-            drinks.map(drink => (
-              <tr style={styles.tr}>
-                <td style={styles.td}>
-                  <Typography variant='body2'>{drink.name}</Typography>
-                </td>
-                <td style={styles.td}>
-                  <Typography variant='body2'>{drink.ingredients}</Typography>
-                </td>
-                <td style={styles.td}>
-                  <Typography variant='body2'>{drink.instructions}</Typography>
-                </td>
-                <td style={styles.td}>
-                  <Typography variant='body2'>{drink.author}</Typography>
-                </td>
-                <td style={styles.td}>
-                  <Typography variant='body2'>{drink.averageScore}</Typography>
-                </td>
-                {drink.author === props.currentUser && 
-                <td style={styles.td}>
-                  <Button onClick={() => deleteDrink(drink)}>Delete</Button>
-                </td>}
-                {drink.author !== props.currentUser && 
-                <td style={styles.td}>
-                  <Button onClick={() => getDrinkDetails(drink)}>Details</Button>
-                </td>}
-              </tr>
-            ))
-        }
-        </table>
+        <div style={{width: '55%'}}>
+          <table style={{borderCollapse: 'collapse', width: '100%'}}>
+            <tr style={styles.trHeader}>
+              <th style={styles.td}><Typography variant='body1'>Name</Typography></th>
+              <th style={styles.td}><Typography variant='body1'>Author</Typography></th>
+              <th style={styles.td}><Typography variant='body1'>Rating</Typography></th>
+            </tr>
+            {
+              drinks.map(drink => (
+                <tr style={styles.tr}>
+                  <td style={styles.td}>
+                    <Typography variant='body2'>{drink.name}</Typography>
+                  </td>
+                  <td style={styles.td}>
+                    <Typography variant='body2'>{drink.author}</Typography>
+                  </td>
+                  <td style={styles.td}>
+                    <Typography variant='body2'>{drink.averageScore}</Typography>
+                  </td>
+                  <td style={styles.td}>
+                    <Button onClick={() => getDrinkDetails(drink)}>Details</Button>
+                  </td>
+                  {drink.author === props.currentUser && 
+                  <td style={styles.td}>
+                    <Button onClick={() => deleteDrink(drink)}>Delete</Button>
+                  </td>}
+
+                </tr>
+              ))
+          }
+          </table>
+        </div>
       </div>
     );
   }

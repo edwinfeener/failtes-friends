@@ -10,6 +10,11 @@ import Typography from '@material-ui/core/Typography';
 
 function DrinkDetails(props) {
   const [reviews, setReviews] = useState([]);
+  const styles = {
+    trHeader: {borderBottom: '1px solid black', textAlign: 'left'},
+    tr: {textAlign: 'left'},
+    td: {}
+  };
 
   useEffect(() => {
     fetchReviews();
@@ -74,29 +79,33 @@ function DrinkDetails(props) {
         <Typography variant='h5'>Instructions:</Typography>
         <Typography>{props.drinkDetails.instructions}</Typography>
       </div>
-      <div style={{marginBottom: '50px'}}>
-        <Typography variant='h5'>Reviews:</Typography>
-        <div>
+      <div style={{marginTop: '50px', marginBottom: '50px', width: '55%'}}>
+        <table style={{borderCollapse: 'collapse', width: '100%'}}>
+          <tr style={styles.trHeader}>
+            <th style={styles.td}><Typography variant='body1'>Review</Typography></th>
+            <th style={styles.td}><Typography variant='body1'>Score</Typography></th>
+            <th style={styles.td}><Typography variant='body1'>User</Typography></th>
+          </tr>
           {
             reviews.map(review => (
-              <div>
-                <div>
-                  <Typography>{review.content}</Typography>
-                </div>
-                <div>
-                  <Typography>{review.score}</Typography>
-                </div>
-                <div>
-                  <Typography>{review.userID}</Typography>
-                </div>
+              <tr style={styles.tr}>
+                <td style={styles.td}>
+                  <Typography variant='body2'>{review.content}</Typography>
+                </td>
+                <td style={styles.td}>
+                  <Typography variant='body2'>{review.score}</Typography>
+                </td>
+                <td style={styles.td}>
+                  <Typography variant='body2'>{review.userID}</Typography>
+                </td>
                 {review.userID === props.currentUser && 
-                <div>
+                <td>
                   <Button onClick={() => deleteReview(review)}>Delete</Button>
-                </div>}
-              </div>
+                </td>}
+              </tr>
             ))
-          }
-        </div>
+        }
+        </table>
       </div>
       {!hasReviewed() && <div style={{marginBottom: '50px'}}>
           {getReviewForm()}
