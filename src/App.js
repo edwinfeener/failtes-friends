@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-// import { Auth } from 'aws-amplify';
 
 import Cookies from 'universal-cookie';
 
@@ -85,10 +83,9 @@ function App() {
         {currentView === 'adminPage' && <AdminPage />}
         {currentView === 'createDrink' && <CreateDrink currentUser={currentUser}/>}
         {currentView === 'drinkList' && <DrinkList currentUser={currentUser}/>}
-        {currentView === 'signoutavailable' && <AmplifySignOut />}
       </div>
     </div>
   );
 }
 
-export default withAuthenticator(App);
+export default App;
